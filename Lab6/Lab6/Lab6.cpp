@@ -1,37 +1,37 @@
-﻿#include <iostream>
-#include <cmath>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
 using namespace std;
 
-double f(double x)
-{
-	return sqrt(x) + x * x - 10;
-}
-
-double poldel(double a, double b, double eps)
-{
-	double c;
-	while (fabs(b - a) > eps)
-	{
-		c = (b + a) / 2;
-
-		if (f(a) * f(c) < 0)
-			b = c;
-		else a = c;
-	}
-
-	return c;
-}
+int count_digit(char* word);
 
 int main()
 {
 	setlocale(LC_ALL, "rus");
 
-	double a = 0, b = 5, c, eps = 0.0001;
+	char s[256];
+	cout << "Введите строку: ";
+	gets_s(s);
 
-	cout << "eps = " << eps << " a = " << a << " b = " << b << endl;
+	char* word = strtok(s, " ");
+	while (word != NULL)
+	{
+		int count = count_digit(word);
+		if (count == 1)
+			cout << word << endl;
 
-	c = poldel(a, b, eps);
-
-	cout << "Корень = " << c << endl;
+		word = strtok(NULL, " ");
+	}
 }
 
+int count_digit(char* word)
+{
+	int count = 0;
+
+	for (int i = 0; i < strlen(word); i++)
+	{
+		if (isdigit(word[i]))
+			count++;
+	}
+
+	return count;
+}
